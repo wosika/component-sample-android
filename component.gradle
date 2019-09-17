@@ -1,8 +1,9 @@
-apply plugin: 'com.android.application'
-
-apply plugin: 'kotlin-android'
-
-apply plugin: 'kotlin-android-extensions'
+//def componentName = project.getName().startsWith("module_") ? project.getName().substring(0, "module_".length()) :
+if (isBuildModule.toBoolean()) {
+    apply plugin: 'com.android.application'
+} else {
+    apply plugin: 'com.android.library'
+}
 
 android {
     compileSdkVersion rootProject.ext.versions["compileSdkVersion"]
@@ -15,17 +16,15 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.dosmono.translator"
         minSdkVersion rootProject.ext.versions["minSdkVersion"]
         targetSdkVersion rootProject.ext.versions["targetSdkVersion"]
         versionCode rootProject.ext.versions["versionCode"]
         versionName rootProject.ext.versions["versionName"]
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [AROUTER_MODULE_NAME: project.getName()]
+                includeCompileClasspath true
             }
         }
     }
@@ -41,7 +40,9 @@ android {
             buildConfigField "boolean", "LOG_DEBUG", "false"
             buildConfigField "boolean", "IS_BUILD_MODULE", "${isBuildModule}"
             minifyEnabled true
-            shrinkResources true
+            if (isBuildModule.toBoolean()) {
+                shrinkResources true
+            }
             zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -52,17 +53,25 @@ android {
         disable "ResourceType"
         abortOnError false
     }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+            /*   if (isBuildModule.toBoolean()) {
+                   manifest.srcFile 'src/main/debug/AndroidManifest.xml'
+               } else {
+                   manifest.srcFile 'src/main/release/AndroidManifest.xml'
+               }*/
+
+            manifest.srcFile 'src/main/AndroidManifest.xml'
+        }
+    }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    if (!isBuildModule.toBoolean()) {
-        //在宿主 App 中使用 implementation 依赖业务组件, 业务组件的代码就会完全暴露给宿主 App, 不利于代码的隔离
-        //使用 runtimeOnly 依赖业务组件, 可实现业务组件的代码在编译时对宿主 App 不可见, 仅在运行时对宿主 App 可见
-        runtimeOnly project(":moudle-jiyang")
+    if (isBuildModule.toBoolean()) {
+        annotationProcessor rootProject.ext.dependencies["ARouter-compiler"]
+    } else {
+        compileOnly rootProject.ext.dependencies["ARouter-compiler"]
     }
-    implementation project(":common-basic")
-
-
 }
