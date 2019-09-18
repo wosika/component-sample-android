@@ -5,11 +5,13 @@ if (isBuildModule.toBoolean()) {
     apply plugin: 'com.android.library'
 }
 apply plugin: 'kotlin-android'
-
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion rootProject.ext.versions["compileSdkVersion"]
     buildToolsVersion rootProject.ext.versions["buildToolsVersion"]
+
     useLibrary 'org.apache.http.legacy'
 
     compileOptions {
@@ -23,23 +25,25 @@ android {
         versionCode rootProject.ext.versions["versionCode"]
         versionName rootProject.ext.versions["versionName"]
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+
+        consumerProguardFiles 'consumer-rules.pro'
+
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [AROUTER_MODULE_NAME: project.getName()]
                 includeCompileClasspath true
             }
         }
     }
+
     buildTypes {
         debug {
-            buildConfigField "boolean", "LOG_DEBUG", "true"
             buildConfigField "boolean", "IS_BUILD_MODULE", "${isBuildModule}"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
         release {
-            buildConfigField "boolean", "LOG_DEBUG", "false"
             buildConfigField "boolean", "IS_BUILD_MODULE", "${isBuildModule}"
             minifyEnabled true
             if (isBuildModule.toBoolean()) {
@@ -69,22 +73,16 @@ android {
         }
     }
 
-
 }
+
 
 kapt {
     arguments {
-        //arguments = [AROUTER_MODULE_NAME, project.getName()]
         arg("AROUTER_MODULE_NAME", project.getName())
-        includeCompileClasspath true
     }
 }
 
 dependencies {
-    if (isBuildModule.toBoolean()) {
-        // annotationProcessor rootProject.ext.dependencies["ARouter-compiler"]
-        kapt rootProject.ext.dependencies["ARouter-compiler"]
-    } else {
-        compileOnly rootProject.ext.dependencies["ARouter-compiler"]
-    }
+    kapt 'com.alibaba:arouter-compiler:1.2.2'
+
 }
