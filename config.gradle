@@ -4,9 +4,9 @@ ext {
             constraint_version          : "1.1.2",
 
             "buildToolsVersion"         : "28.0.3",
-            "compileSdkVersion"         : 27,
+            "compileSdkVersion"         : 28,
             "minSdkVersion"             : 21,
-            "targetSdkVersion"          : 27,
+            "targetSdkVersion"          : 28,
 
             "inspenction_versionCode"   : 142,
             "inspenction_versionName"   : "V1.4.2",

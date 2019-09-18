@@ -1,2 +1,4 @@
-include ':app', ':common-basic', ':moudle-jiyang'
+include ':app', ':common-basic', ':moudle-jiyang',':moudle-tianya'
+
+
 //rootProject.name='Dosmono'

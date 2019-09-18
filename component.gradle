@@ -4,7 +4,9 @@ if (isBuildModule.toBoolean()) {
 } else {
     apply plugin: 'com.android.library'
 }
+apply plugin: 'kotlin-android'
 
+apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion rootProject.ext.versions["compileSdkVersion"]
     buildToolsVersion rootProject.ext.versions["buildToolsVersion"]
@@ -66,11 +68,22 @@ android {
             manifest.srcFile 'src/main/AndroidManifest.xml'
         }
     }
+
+
+}
+
+kapt {
+    arguments {
+        //arguments = [AROUTER_MODULE_NAME, project.getName()]
+        arg("AROUTER_MODULE_NAME", project.getName())
+        includeCompileClasspath true
+    }
 }
 
 dependencies {
     if (isBuildModule.toBoolean()) {
-        annotationProcessor rootProject.ext.dependencies["ARouter-compiler"]
+        // annotationProcessor rootProject.ext.dependencies["ARouter-compiler"]
+        kapt rootProject.ext.dependencies["ARouter-compiler"]
     } else {
         compileOnly rootProject.ext.dependencies["ARouter-compiler"]
     }

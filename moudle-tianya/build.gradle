@@ -1,7 +1,7 @@
 apply from:"../component.gradle"
 
 android {
-    resourcePrefix "jiyang_" //给 Module 内的资源名增加前缀, 避免资源名冲突
+    resourcePrefix "tianya_" //给 Module 内的资源名增加前缀, 避免资源名冲突
 }
 
 dependencies {
