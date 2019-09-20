@@ -10,6 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <!--必须要在宿主app声明一个LAUNCHER，否则app无法运行-->
         <activity android:name="com.dosmono.sanya.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
