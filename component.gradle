@@ -63,13 +63,14 @@ android {
     sourceSets {
         main {
             jniLibs.srcDirs = ['libs']
-            /*   if (isBuildModule.toBoolean()) {
-                   manifest.srcFile 'src/main/debug/AndroidManifest.xml'
-               } else {
-                   manifest.srcFile 'src/main/release/AndroidManifest.xml'
-               }*/
+            if (isBuildModule.toBoolean()) {
+                //单独运行
+                manifest.srcFile 'src/main/alone/AndroidManifest.xml'
+            } else {
+                //合并到宿主
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+            }
 
-            manifest.srcFile 'src/main/AndroidManifest.xml'
         }
     }
 
