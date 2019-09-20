@@ -12,6 +12,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
     }
     defaultConfig {
+        applicationId "com.dosmono.sanya.component"
         minSdkVersion rootProject.ext.versions["minSdkVersion"]
         targetSdkVersion rootProject.ext.versions["targetSdkVersion"]
         versionCode rootProject.ext.versions["versionCode"]
