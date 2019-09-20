@@ -3,7 +3,6 @@
     package="com.dosmono.sanya.main">
 
     <application>
-        <activity android:name=".MainActivity"></activity>
     </application>
 
 </manifest>

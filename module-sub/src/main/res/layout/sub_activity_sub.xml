@@ -10,7 +10,7 @@
     <TextView
         android:id="@+id/btn"
         android:layout_centerInParent="true"
-        android:text="sub模块"
+        android:text="sub组件"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

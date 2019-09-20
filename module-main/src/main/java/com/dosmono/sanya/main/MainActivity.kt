@@ -15,7 +15,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity_main)
 
-
         btn.setOnClickListener {
             ARouter.getInstance().build(RouterParty.Sub.SUB_ACTIVITY).navigation();
         }
