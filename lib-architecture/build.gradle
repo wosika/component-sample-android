@@ -60,5 +60,6 @@ dependencies {
 
     //dagger2
     api 'com.google.dagger:dagger-android:2.24'
+    api 'com.google.dagger:dagger-android-support:2.24'
     kapt 'com.google.dagger:dagger-android-processor:2.24'
 }

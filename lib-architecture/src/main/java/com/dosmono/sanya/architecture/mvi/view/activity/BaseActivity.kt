@@ -7,7 +7,7 @@ import com.dosmono.sanya.architecture.mvi.viewstate.IViewState
 
 
 
-abstract class BaseActivity<I : IIntent, VS : IViewState> : IView<I, VS>, AutoDisposeActivity() {
+abstract class BaseActivity<I : IIntent, VS : IViewState> : IView<I, VS>, InjectionActivity() {
 
     //设置布局文件
     protected abstract val layoutId: Int

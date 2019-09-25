@@ -8,7 +8,7 @@ import com.dosmono.sanya.architecture.mvi.intent.IIntent
 import com.dosmono.sanya.architecture.mvi.view.IView
 import com.dosmono.sanya.architecture.mvi.viewstate.IViewState
 
-abstract class BaseFragment<I : IIntent, S : IViewState> : AutoDisposeFragment()
+abstract class BaseFragment<I : IIntent, S : IViewState> : InjectionFragment()
     , IView<I, S> {
 
     private var mRootView: View? = null
