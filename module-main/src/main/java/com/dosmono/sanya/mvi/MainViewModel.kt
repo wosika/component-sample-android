@@ -1,13 +1,16 @@
 package com.dosmono.sanya.mvi
 
-import com.dosmono.sanya.mvi.viewmodel.IViewModel
+import com.dosmono.sanya.architecture.mvi.viewmodel.BaseViewModel
 import io.reactivex.Observable
 
-class MainViewModel:IViewModel<MainIntent,MainViewState> {
+class MainViewModel(): BaseViewModel<MainIntent, MainViewState>() {
+
+
+
 
     //处理用户发起的意图
     override fun processIntents(intents: Observable<MainIntent>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
 

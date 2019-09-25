@@ -45,18 +45,15 @@ dependencies {
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     api 'androidx.appcompat:appcompat:1.1.0'
     api 'androidx.core:core-ktx:1.1.0'
+
+
     //通用的资源
     api project(":lib-res")
 
-    //阿里巴巴路由框架
-    api 'com.alibaba:arouter-api:1.5.0'
+    //架构导入
+    api project(":lib-architecture")
 
-    //rx
-    //  api "io.reactivex.rxjava3:rxjava:3.0.0-RC3"
-    api "io.reactivex.rxjava2:rxjava:2.2.12"
-    api 'io.reactivex.rxjava2:rxandroid:2.1.1'
-    api "io.reactivex.rxjava2:rxkotlin:2.4.0"
-    api 'com.uber.autodispose:autodispose-android-archcomponents:1.4.0'
-    api 'com.jakewharton.rxbinding3:rxbinding:3.0.0'
+    //阿里巴巴路由框架架构
+    api 'com.alibaba:arouter-api:1.5.0'
 
 }

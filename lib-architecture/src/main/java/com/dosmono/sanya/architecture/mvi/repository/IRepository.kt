@@ -1,4 +1,4 @@
-package com.dosmono.sanya.mvi.repository
+package com.dosmono.sanya.architecture.mvi.repository
 
 interface IRepository
 

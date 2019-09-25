@@ -1,7 +1,7 @@
-package com.dosmono.sanya.mvi.view
+package com.dosmono.sanya.architecture.mvi.view
 
-import com.dosmono.sanya.mvi.intent.IIntent
-import com.dosmono.sanya.mvi.viewstate.IViewState
+import com.dosmono.sanya.architecture.mvi.intent.IIntent
+import com.dosmono.sanya.architecture.mvi.viewstate.IViewState
 import io.reactivex.Observable
 
 interface IView<I : IIntent, S : IViewState> {

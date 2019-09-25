@@ -86,4 +86,5 @@ kapt {
 dependencies {
     kapt 'com.alibaba:arouter-compiler:1.2.2'
 
+    kapt 'com.google.dagger:dagger-android-processor:2.24'
 }

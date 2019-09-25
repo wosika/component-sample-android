@@ -3,7 +3,8 @@
     package="com.dosmono.sanya.component">
 
 
-
+    <uses-permission android:name="android.Manifest.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <application
         android:allowBackup="true"
         android:name="com.dosmono.sanya.base.App"

@@ -1,8 +1,7 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-
 android {
     compileSdkVersion rootProject.ext.versions["compileSdkVersion"]
     buildToolsVersion rootProject.ext.versions["buildToolsVersion"]
@@ -11,20 +10,19 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
         sourceCompatibility JavaVersion.VERSION_1_8
     }
+
+
     defaultConfig {
-        applicationId "com.dosmono.sanya.component"
         minSdkVersion rootProject.ext.versions["minSdkVersion"]
         targetSdkVersion rootProject.ext.versions["targetSdkVersion"]
         versionCode rootProject.ext.versions["versionCode"]
         versionName rootProject.ext.versions["versionName"]
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        javaCompileOptions {
-            annotationProcessorOptions {
-                includeCompileClasspath true
-            }
-        }
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
     }
+
     buildTypes {
         debug{
             minifyEnabled false
@@ -36,26 +34,31 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-}
 
-kapt {
-    arguments {
-        arg("AROUTER_MODULE_NAME", project.getName())
-    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api 'androidx.appcompat:appcompat:1.1.0'
+    api 'androidx.core:core-ktx:1.1.0'
 
-    //宿主项目中判断组件是否需要独立运行
-    if (!isBuildModule.toBoolean()) {
-        //在宿主 App 中使用 implementation 依赖业务组件, 业务组件的代码就会完全暴露给宿主 App, 不利于代码的隔离
-        //使用 runtimeOnly 依赖业务组件, 可实现业务组件的代码在编译时对宿主 App 不可见, 仅在运行时对宿主 App 可见
-        runtimeOnly project(path: ':module-main')
-        runtimeOnly project(path: ':module-sub')
-        runtimeOnly project(path: ':module-talk')
-    }
-    implementation project(path: ':lib-base')
-    kapt 'com.alibaba:arouter-compiler:1.2.2'
+
+
+    //rx
+    //  api "io.reactivex.rxjava3:rxjava:3.0.0-RC3"
+    api "io.reactivex.rxjava2:rxjava:2.2.12"
+    api 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    api "io.reactivex.rxjava2:rxkotlin:2.4.0"
+    api 'com.uber.autodispose:autodispose-android-archcomponents:1.4.0'
+    api 'com.jakewharton.rxbinding3:rxbinding:3.0.0'
+
+
+    //viewmodel
+    api 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+
+
+    //dagger2
+    api 'com.google.dagger:dagger-android:2.24'
     kapt 'com.google.dagger:dagger-android-processor:2.24'
 }
