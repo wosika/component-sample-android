@@ -1,2 +1,2 @@
-include ':app', ':module-main', ':lib-base', ':module-sub', ':module-talk', ':lib-res', ':lib-architecture'
+include ':app', ':module-main', ':lib-component', ':module-sub', ':module-talk', ':lib-res', ':lib-architecture'
 rootProject.name='Component'

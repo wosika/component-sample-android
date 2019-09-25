@@ -1,4 +1,4 @@
-package com.dosmono.sanya.base
+package com.dosmono.sanya.component.base
 
 object RouterParty {
 

@@ -1,17 +1,17 @@
-package com.dosmono.sanya.mvi
+package com.dosmono.sanya.main.mvi
 
 import android.os.Bundle
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProviders
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
-import com.dosmono.sanya.base.RouterParty
+import com.dosmono.sanya.component.base.RouterParty
 import com.dosmono.sanya.main.R
-import com.dosmono.sanya.mvi.MainViewState.ErrorState
+import com.dosmono.sanya.main.mvi.MainViewState.ErrorState
 import com.dosmono.sanya.architecture.mvi.view.activity.BaseActivity
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.main_activity_main.*
+import javax.inject.Inject
 
 @Route(path = RouterParty.Main.MAIN_ACTIVITY)
 class MainActivity() : BaseActivity<MainIntent, MainViewState>() {
@@ -19,17 +19,13 @@ class MainActivity() : BaseActivity<MainIntent, MainViewState>() {
 
     private val intentSubject: PublishSubject<MainIntent> = PublishSubject.create()
 
-
-    private lateinit var viewModel: MainViewModel
+    @Inject
+    lateinit var mViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
-
-        initViewModel()
-
-
+        
         btn.setOnClickListener {
             ARouter.getInstance().build(RouterParty.Sub.SUB_ACTIVITY).navigation();
         }
@@ -38,13 +34,6 @@ class MainActivity() : BaseActivity<MainIntent, MainViewState>() {
         NetworkUtils.getPhoneState(this)
     }
 
-
-
-
-    private fun initViewModel() {
-        viewModel = ViewModelProviders.of(this)[MainViewModel::class.java]
-
-    }
 
 
     /**

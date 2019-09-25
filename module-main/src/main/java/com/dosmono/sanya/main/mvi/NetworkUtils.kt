@@ -1,26 +1,16 @@
-package com.dosmono.sanya.mvi
+package com.dosmono.sanya.main.mvi
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.telephony.PhoneStateListener
-import android.system.Os.listen
 import android.telephony.TelephonyManager
 import android.telephony.SignalStrength
 import android.telephony.ServiceState
 import android.telephony.cdma.CdmaCellLocation
 import android.telephony.gsm.GsmCellLocation
 import android.telephony.CellLocation
-import android.content.Context.TELEPHONY_SERVICE
-import android.content.Context.WIFI_SERVICE
-import android.net.ConnectivityManager
-import android.net.Network
 import android.util.Log
-import androidx.core.content.ContextCompat.getSystemService
-import android.net.NetworkInfo
 import android.net.wifi.WifiManager
-import android.R.attr.level
-
-
 
 
 object NetworkUtils {

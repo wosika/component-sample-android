@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
-import com.dosmono.sanya.base.RouterParty
+import com.dosmono.sanya.component.base.RouterParty
 import kotlinx.android.synthetic.main.sub_activity_sub.*
 
 @Route(path = RouterParty.Sub.SUB_ACTIVITY)

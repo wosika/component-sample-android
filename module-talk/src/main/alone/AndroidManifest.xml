@@ -4,7 +4,7 @@
 
 
     <application
-        android:name="com.dosmono.sanya.base.App"
+        android:name="com.dosmono.sanya.component.base.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

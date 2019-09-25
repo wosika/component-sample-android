@@ -56,4 +56,9 @@ dependencies {
     //阿里巴巴路由框架架构
     api 'com.alibaba:arouter-api:1.5.0'
 
+
+    //dagger
+    kapt 'com.google.dagger:dagger-android-processor:2.24'
+    kapt 'com.google.dagger:dagger-compiler:2.24'
+
 }

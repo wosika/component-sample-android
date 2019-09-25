@@ -1,4 +1,4 @@
-package com.dosmono.sanya.mvi
+package com.dosmono.sanya.main.mvi
 
 import com.dosmono.sanya.architecture.mvi.intent.IIntent
 

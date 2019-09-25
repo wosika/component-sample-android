@@ -55,7 +55,7 @@ dependencies {
         runtimeOnly project(path: ':module-sub')
         runtimeOnly project(path: ':module-talk')
     }
-    implementation project(path: ':lib-base')
+    implementation project(path: ':lib-component')
     kapt 'com.alibaba:arouter-compiler:1.2.2'
-    kapt 'com.google.dagger:dagger-android-processor:2.24'
+
 }
