@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
+import com.dosmono.sanya.architecture.app.WTF
 import com.dosmono.sanya.component.RouterParty
 import com.dosmono.sanya.main.R
 import com.dosmono.sanya.main.mvi.MainViewState.ErrorState
@@ -11,6 +12,7 @@ import com.dosmono.sanya.architecture.mvi.view.activity.BaseActivity
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.main_activity_main.*
+import timber.log.Timber
 import javax.inject.Inject
 
 @Route(path = RouterParty.Main.MAIN_ACTIVITY)
@@ -23,6 +25,10 @@ class MainActivity() : BaseActivity<MainIntent, MainViewState>() {
     @Inject
     lateinit var mViewModel: MainViewModel
 
+
+    @Inject
+    lateinit var wtf: WTF
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -33,6 +39,10 @@ class MainActivity() : BaseActivity<MainIntent, MainViewState>() {
 
 
         NetworkUtils.getPhoneState(this)
+
+        Timber.d("mainActivity看看wtf的属性是不是单例$wtf")
+
+        mViewModel.processIntents(intents())
     }
 
 

@@ -2,6 +2,8 @@ package com.dosmono.sanya.architecture.app
 
 import android.app.Application
 import com.dosmono.sanya.architecture.BuildConfig
+import com.dosmono.sanya.architecture.di.AppComponent
+import com.dosmono.sanya.architecture.di.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
@@ -16,7 +18,10 @@ abstract class BaseApp : Application(), HasAndroidInjector {
 
 
     @Inject
-    lateinit var appName: String
+    lateinit var wtf: WTF
+
+
+    private var appComponent: AppComponent? = null
 
 
     override fun androidInjector(): AndroidInjector<Any> {
@@ -26,11 +31,9 @@ abstract class BaseApp : Application(), HasAndroidInjector {
 
     override fun onCreate() {
         super.onCreate()
-        initDagger()
-
-
 
         initTimber()
+        initDagger()
 
     }
 
@@ -49,7 +52,16 @@ abstract class BaseApp : Application(), HasAndroidInjector {
      * 初始化dagger依赖注入
      */
     private fun initDagger() {
+        appComponent = DaggerAppComponent.factory().create(this).also {
+            it.inject(this)
+        }
 
-        //DaggerAppComponent.factory().create(this).inject(this)
+        Timber.d("看看wtf是不是单例$wtf")
     }
+
+
+    fun getAppComponent(): AppComponent? {
+        return appComponent
+    }
+
 }

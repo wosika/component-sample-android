@@ -1,7 +1,7 @@
 package com.dosmono.sanya.architecture.di
 
 import android.app.Application
-import com.dosmono.sanya.architecture.R
+import com.dosmono.sanya.architecture.app.WTF
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -11,7 +11,6 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideAppName(application: Application): String = application.getString(R.string.app_name)
-
+    fun provideWTF(application: Application): WTF = WTF("wosika","25")
 
 }
