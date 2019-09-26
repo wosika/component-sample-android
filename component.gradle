@@ -84,7 +84,7 @@ kapt {
 }
 
 dependencies {
-    implementation project(':lib-architecture')
+    implementation project(':lib-component')
 
 
     kapt 'com.alibaba:arouter-compiler:1.2.2'

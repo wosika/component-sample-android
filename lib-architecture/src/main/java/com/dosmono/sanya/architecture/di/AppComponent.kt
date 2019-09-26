@@ -1,7 +1,7 @@
 package com.dosmono.sanya.architecture.di
 
 import android.app.Application
-import com.dosmono.sanya.architecture.app.App
+import com.dosmono.sanya.architecture.app.BaseApp
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
@@ -11,7 +11,7 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(modules = [AndroidInjectionModule::class, AndroidSupportInjectionModule::class, AppModule::class])
-interface AppComponent : AndroidInjector<App> {
+interface AppComponent : AndroidInjector<BaseApp> {
 
     @Component.Factory
     interface Factory {

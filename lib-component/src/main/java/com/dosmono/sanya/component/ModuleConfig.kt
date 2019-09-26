@@ -10,9 +10,10 @@ import android.app.Application
 object ModuleConfig {
     //初始化组件-靠前
     fun initModule(application: Application) {
-        for (moduleInitName in ModuleParty.MODULES) {
+        ModuleParty.MODULES.forEach { moduleName ->
+
             try {
-                val clazz = Class.forName(moduleInitName)
+                val clazz = Class.forName(moduleName)
                 val init = clazz.newInstance() as IModule
                 //调用初始化方法
                 init.onInit(application)
@@ -23,7 +24,6 @@ object ModuleConfig {
             } catch (e: IllegalAccessException) {
                 e.printStackTrace()
             }
-
         }
     }
 

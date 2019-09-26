@@ -51,6 +51,11 @@ dependencies {
     api project(":lib-res")
 
 
+
+    //导入Arouter
+    api project(":lib-architecture")
+
+
     //阿里巴巴路由框架架构
     api 'com.alibaba:arouter-api:1.5.0'
 
