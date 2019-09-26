@@ -13,7 +13,6 @@ import javax.inject.Inject
 import timber.log.Timber.DebugTree
 
 
-
 class App : Application(), HasAndroidInjector {
 
 
@@ -38,11 +37,14 @@ class App : Application(), HasAndroidInjector {
 
         initTimber()
 
-
         //提供让各个模块进行初始化的方法
         ModuleConfig.initModule(this)
     }
 
+
+    /**
+     * 初始化Log工具类
+     */
     private fun initTimber() {
         if (BuildConfig.DEBUG) {
             Timber.plant(DebugTree())
