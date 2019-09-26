@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
-import com.dosmono.sanya.component.base.RouterParty
+import com.dosmono.sanya.component.RouterParty
 import com.dosmono.sanya.main.R
 import com.dosmono.sanya.main.mvi.MainViewState.ErrorState
 import com.dosmono.sanya.architecture.mvi.view.activity.BaseActivity
@@ -15,6 +15,7 @@ import javax.inject.Inject
 
 @Route(path = RouterParty.Main.MAIN_ACTIVITY)
 class MainActivity() : BaseActivity<MainIntent, MainViewState>() {
+
     override val layoutId = R.layout.main_activity_main
 
     private val intentSubject: PublishSubject<MainIntent> = PublishSubject.create()

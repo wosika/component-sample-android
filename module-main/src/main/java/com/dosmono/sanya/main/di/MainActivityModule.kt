@@ -6,6 +6,7 @@ import com.dosmono.sanya.main.mvi.MainActivity
 import com.dosmono.sanya.main.mvi.MainViewModel
 import dagger.Module
 import dagger.Provides
+
 @Module
 class MainActivityModule {
 

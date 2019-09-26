@@ -50,8 +50,6 @@ dependencies {
     //通用的资源
     api project(":lib-res")
 
-    //架构导入
-    api project(":lib-architecture")
 
     //阿里巴巴路由框架架构
     api 'com.alibaba:arouter-api:1.5.0'

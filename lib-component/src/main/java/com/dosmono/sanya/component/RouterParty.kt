@@ -1,4 +1,4 @@
-package com.dosmono.sanya.component.base
+package com.dosmono.sanya.component
 
 object RouterParty {
 
@@ -21,14 +21,14 @@ object RouterParty {
     // sub组件
     object Sub {
          const val GROUP = "/sub"
-        const val SUB_ACTIVITY = "${GROUP}/subactivity"
+        const val SUB_ACTIVITY = "$GROUP/subactivity"
     }
 
 
     // talk组件
     object Talk {
         const val GROUP = "/talk"
-        const val TALK_ACTIVITY = "${GROUP}/talkactivity"
+        const val TALK_ACTIVITY = "$GROUP/talkactivity"
     }
 
 
