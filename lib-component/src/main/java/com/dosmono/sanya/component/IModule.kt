@@ -10,9 +10,9 @@ interface IModule {
     /**
      * 将application传入
      * @param application Application
-     * @return Boolean true时初始化成功，false初始化失败
+     *
      */
-    fun onInit(application: Application): Boolean
+    fun onInit(application: Application)
 
 
 }

@@ -5,10 +5,8 @@ import com.dosmono.sanya.component.IModule
 import timber.log.Timber
 
 class TalkModuleImpl :IModule{
-    override fun onInit(application: Application): Boolean {
-
+    override fun onInit(application: Application) {
         Timber.d("初始化 talk组件")
-        return true;
     }
 
 }

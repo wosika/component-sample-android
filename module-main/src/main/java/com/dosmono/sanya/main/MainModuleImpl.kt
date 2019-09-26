@@ -10,11 +10,10 @@ import timber.log.Timber
 class MainModuleImpl : IModule {
 
 
-    override fun onInit(application: Application): Boolean {
+    override fun onInit(application: Application) {
         //对整个模块进行依赖注入
        // DaggerMainModuleComponent.().create(application).inject(application)
         DaggerMainModuleComponent.builder().application(application).build().inject(application as App)
         Timber.d("初始化 main组件")
-        return true
     }
 }

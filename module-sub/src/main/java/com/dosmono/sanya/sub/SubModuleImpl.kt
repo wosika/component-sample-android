@@ -6,9 +6,8 @@ import timber.log.Timber
 
 class SubModuleImpl : IModule {
 
-    override fun onInit(application: Application): Boolean {
+    override fun onInit(application: Application) {
         Timber.d("初始化 sub组件")
-        return true;
     }
 
 }
