@@ -10,7 +10,7 @@ import dagger.android.HasAndroidInjector
 import timber.log.Timber
 import javax.inject.Inject
 
-abstract class BaseApp : Application(), HasAndroidInjector {
+abstract class BaseApp : IAPP, Application(), HasAndroidInjector {
 
 
     @Inject
@@ -21,7 +21,7 @@ abstract class BaseApp : Application(), HasAndroidInjector {
     lateinit var wtf: WTF
 
 
-    private var appComponent: AppComponent? = null
+    private lateinit var appComponent: AppComponent
 
 
     override fun androidInjector(): AndroidInjector<Any> {
@@ -60,7 +60,7 @@ abstract class BaseApp : Application(), HasAndroidInjector {
     }
 
 
-    fun getAppComponent(): AppComponent? {
+    override fun getAppComponent(): AppComponent {
         return appComponent
     }
 

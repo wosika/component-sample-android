@@ -2,6 +2,7 @@ package com.dosmono.sanya.architecture.di
 
 import android.app.Application
 import com.dosmono.sanya.architecture.app.BaseApp
+import com.dosmono.sanya.architecture.app.WTF
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
@@ -21,5 +22,8 @@ interface AppComponent : AndroidInjector<BaseApp> {
          */
         fun create(@BindsInstance application: Application): AppComponent
     }
+
+
+    fun wtf(): WTF
 
 }

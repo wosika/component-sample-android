@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
+import com.dosmono.sanya.architecture.app.Kits
 import com.dosmono.sanya.architecture.app.WTF
 import com.dosmono.sanya.component.RouterParty
 import com.dosmono.sanya.main.R
@@ -25,14 +26,14 @@ class MainActivity() : BaseActivity<MainIntent, MainViewState>() {
     @Inject
     lateinit var mViewModel: MainViewModel
 
-
+    //此时注入进来的wtf对象 是重新创建的
     @Inject
     lateinit var wtf: WTF
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        
+
         btn.setOnClickListener {
             ARouter.getInstance().build(RouterParty.Sub.SUB_ACTIVITY).navigation();
         }
@@ -40,7 +41,12 @@ class MainActivity() : BaseActivity<MainIntent, MainViewState>() {
 
         NetworkUtils.getPhoneState(this)
 
-        Timber.d("mainActivity看看wtf的属性是不是单例$wtf")
+        Timber.d("mainActivity看看wtf的属性是不是单例1$wtf")
+
+        //通过此方式获取的wtf是单例
+        val wtf1 = Kits.obtainAppComponentFromContext(this).wtf()
+
+        Timber.d("mainActivity看看wtf的属性是不是单例2$wtf1")
 
         mViewModel.processIntents(intents())
     }
