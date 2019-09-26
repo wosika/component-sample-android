@@ -10,6 +10,7 @@ import com.dosmono.sanya.component.RouterParty
 import com.dosmono.sanya.main.R
 import com.dosmono.sanya.main.mvi.MainViewState.ErrorState
 import com.dosmono.sanya.architecture.mvi.view.activity.BaseActivity
+import com.dosmono.sanya.main.Person
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.main_activity_main.*
@@ -30,6 +31,10 @@ class MainActivity() : BaseActivity<MainIntent, MainViewState>() {
     @Inject
     lateinit var wtf: WTF
 
+    @Inject
+    lateinit var person: Person
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -47,6 +52,11 @@ class MainActivity() : BaseActivity<MainIntent, MainViewState>() {
         val wtf1 = Kits.obtainAppComponentFromContext(this).wtf()
 
         Timber.d("mainActivity看看wtf的属性是不是单例2$wtf1")
+
+        val age = person.age;
+        Timber.d("看看person持有的wtf是什么"+person.wtf.toString())
+
+
 
         mViewModel.processIntents(intents())
     }

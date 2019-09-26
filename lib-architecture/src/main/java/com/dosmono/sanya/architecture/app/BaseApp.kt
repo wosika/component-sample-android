@@ -17,10 +17,6 @@ abstract class BaseApp : IAPP, Application(), HasAndroidInjector {
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
 
 
-    @Inject
-    lateinit var wtf: WTF
-
-
     private lateinit var appComponent: AppComponent
 
 
@@ -56,7 +52,6 @@ abstract class BaseApp : IAPP, Application(), HasAndroidInjector {
             it.inject(this)
         }
 
-        Timber.d("看看wtf是不是单例$wtf")
     }
 
 

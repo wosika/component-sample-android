@@ -4,6 +4,7 @@ import com.dosmono.sanya.architecture.mvi.di.ActivityScope
 import com.dosmono.sanya.main.mvi.MainActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
+import javax.inject.Singleton
 
 @Module
 abstract class ActivityModule {
