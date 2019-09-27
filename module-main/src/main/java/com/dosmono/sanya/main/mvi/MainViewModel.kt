@@ -3,17 +3,21 @@ package com.dosmono.sanya.main.mvi
 import com.dosmono.sanya.architecture.app.WTF
 import com.dosmono.sanya.architecture.mvi.viewmodel.BaseViewModel
 import com.dosmono.sanya.main.Person
+import com.uber.autodispose.autoDispose
 import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 import timber.log.Timber
 import javax.inject.Inject
 
 class MainViewModel: BaseViewModel<MainIntent, MainViewState>() {
 
 
+    private val intentSubject: PublishSubject<MainIntent> = PublishSubject.create()
+
 
     //处理用户发起的意图
     override fun processIntents(intents: Observable<MainIntent>) {
-
+            intents.autoDispose(this).subscribe(intentSubject)
 
     }
 

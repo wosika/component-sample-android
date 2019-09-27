@@ -13,12 +13,14 @@ import com.dosmono.sanya.main.mvi.MainViewState.ErrorState
 import com.dosmono.sanya.architecture.mvi.view.activity.BaseActivity
 import com.dosmono.sanya.main.Person
 import com.dosmono.sanya.main.di.DaggerMainActivityComponent
+import com.jakewharton.rxbinding3.view.clicks
 import com.uber.autodispose.autoDisposable
 import com.uber.autodispose.autoDispose
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.main_activity_main.*
 import timber.log.Timber
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @Route(path = RouterParty.Main.MAIN_ACTIVITY)
@@ -35,7 +37,12 @@ class MainActivity() : BaseActivity<MainIntent, MainViewState>() {
 
     override val layoutId = R.layout.main_activity_main
 
-    private val intentSubject: PublishSubject<MainIntent> = PublishSubject.create()
+
+    //初始化意图
+    private val mInitIntent: Observable<MainIntent> = Observable.just(MainIntent.InitIntent)
+    //刷新意图
+    private val mRefreshIntent: PublishSubject<MainIntent.RefreshIntent> = PublishSubject.create()
+
 
     @Inject
     lateinit var mViewModel: MainViewModel
@@ -53,9 +60,7 @@ class MainActivity() : BaseActivity<MainIntent, MainViewState>() {
         super.onCreate(savedInstanceState)
 
 
-        btn.setOnClickListener {
-            ARouter.getInstance().build(RouterParty.Sub.SUB_ACTIVITY).navigation();
-        }
+
 
         binds()
     }
@@ -68,8 +73,16 @@ class MainActivity() : BaseActivity<MainIntent, MainViewState>() {
             .autoDispose(scopeProvider)
             .subscribe(this::render)
 
+        //点击事件
+        btn.clicks()
+            .debounce(2, TimeUnit.SECONDS)
+            .autoDispose(scopeProvider)
+            .subscribe {
+                ARouter.getInstance().build(RouterParty.Talk.TALK_ACTIVITY).navigation(this)
+            }
 
-        //处理意图
+
+        //观察意图
         mViewModel.processIntents(intents())
     }
 
@@ -79,7 +92,8 @@ class MainActivity() : BaseActivity<MainIntent, MainViewState>() {
      * @return Observable<MainIntent>
      */
     override fun intents(): Observable<MainIntent> {
-        return intentSubject.startWith(MainIntent.InitIntent).map { MainIntent.RefreshIntent(1) }
+        return Observable.merge(mInitIntent, mRefreshIntent)
+
     }
 
     /**

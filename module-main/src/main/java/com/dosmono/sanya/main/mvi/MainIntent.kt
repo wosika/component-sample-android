@@ -16,4 +16,8 @@ sealed class MainIntent : IIntent {
     data class RefreshIntent(val page: Int) : MainIntent()
 
 
+
+    object ToSubIntent:MainIntent()
+
+
 }
