@@ -7,7 +7,7 @@ import io.reactivex.Observable
 import timber.log.Timber
 import javax.inject.Inject
 
-class MainViewModel(): BaseViewModel<MainIntent, MainViewState>() {
+class MainViewModel: BaseViewModel<MainIntent, MainViewState>() {
 
 
 

@@ -13,6 +13,8 @@ import com.dosmono.sanya.main.mvi.MainViewState.ErrorState
 import com.dosmono.sanya.architecture.mvi.view.activity.BaseActivity
 import com.dosmono.sanya.main.Person
 import com.dosmono.sanya.main.di.DaggerMainActivityComponent
+import com.uber.autodispose.autoDisposable
+import com.uber.autodispose.autoDispose
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.main_activity_main.*
@@ -39,14 +41,12 @@ class MainActivity() : BaseActivity<MainIntent, MainViewState>() {
     lateinit var mViewModel: MainViewModel
 
 
-
     //此时注入进来的wtf对象 是重新创建的
     @Inject
     lateinit var wtf: WTF
 
     @Inject
     lateinit var person: Person
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,20 +57,19 @@ class MainActivity() : BaseActivity<MainIntent, MainViewState>() {
             ARouter.getInstance().build(RouterParty.Sub.SUB_ACTIVITY).navigation();
         }
 
-
-        NetworkUtils.getPhoneState(this)
-
-        Timber.d("mainActivity 直接inject的 wtf$wtf")
-
-        //通过此方式获取的wtf是单例
-        val wtf1 = Kits.obtainAppComponentFromContext(this).wtf()
-
-        Timber.d("mainActivity obtainAppComponentFromContext wtf $wtf1")
-
-        val age = person.age;
-        Timber.d("看看person持有的wtf是什么"+person.wtf.toString())
+        binds()
+    }
 
 
+    private fun binds() {
+
+        //数据绑定
+        mViewModel.states()
+            .autoDispose(scopeProvider)
+            .subscribe(this::render)
+
+
+        //处理意图
         mViewModel.processIntents(intents())
     }
 
