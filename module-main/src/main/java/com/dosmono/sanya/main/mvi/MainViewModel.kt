@@ -20,6 +20,6 @@ class MainViewModel(): BaseViewModel<MainIntent, MainViewState>() {
 
     //返回状态合并以后的观察者
     override fun states(): Observable<MainViewState> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+       return Observable.empty()
     }
 }

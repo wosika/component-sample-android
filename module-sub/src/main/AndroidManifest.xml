@@ -3,6 +3,6 @@
     package="com.dosmono.sanya.sub">
 
     <application>
-        <activity android:name=".SubActivity" />
+        <activity android:name=".mvi.SubActivity" />
     </application>
 </manifest>

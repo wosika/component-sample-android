@@ -16,7 +16,7 @@ class MainActivityModule {
 
     @Provides
     @ActivityScope
-    fun provideMainViewModel(activity: FragmentActivity): MainViewModel {
+    fun provideViewModel(activity: FragmentActivity): MainViewModel {
         return ViewModelProviders.of(activity)[MainViewModel::class.java]
     }
 
