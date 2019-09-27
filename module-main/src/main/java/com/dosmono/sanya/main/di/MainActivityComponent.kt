@@ -1,5 +1,6 @@
 package com.dosmono.sanya.main.di
 
+import androidx.fragment.app.FragmentActivity
 import com.dosmono.sanya.architecture.di.AppComponent
 import com.dosmono.sanya.architecture.mvi.di.ActivityScope
 import com.dosmono.sanya.main.mvi.MainActivity
@@ -15,7 +16,7 @@ interface MainActivityComponent {
     interface Builder {
 
         @BindsInstance
-        fun activity(mainActivity: MainActivity): Builder
+        fun activity(activity: FragmentActivity): Builder
 
 
         fun appComponent(appComponent: AppComponent): Builder

@@ -26,7 +26,8 @@ class MainActivity() : BaseActivity<MainIntent, MainViewState>() {
     override fun daggerInject(appComponent: AppComponent) {
         DaggerMainActivityComponent.builder()
             .activity(this)
-            .appComponent(appComponent).build()
+            .appComponent(appComponent)
+            .build()
             .inject(this)
     }
 

@@ -1,11 +1,11 @@
 package com.dosmono.sanya.main.di
 
 
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProviders
 import com.dosmono.sanya.architecture.app.WTF
 import com.dosmono.sanya.architecture.mvi.di.ActivityScope
 import com.dosmono.sanya.main.Person
-import com.dosmono.sanya.main.mvi.MainActivity
 import com.dosmono.sanya.main.mvi.MainViewModel
 import dagger.Module
 import dagger.Provides
@@ -16,7 +16,7 @@ class MainActivityModule {
 
     @Provides
     @ActivityScope
-    fun provideMainViewModel(activity: MainActivity): MainViewModel {
+    fun provideMainViewModel(activity: FragmentActivity): MainViewModel {
         return ViewModelProviders.of(activity)[MainViewModel::class.java]
     }
 
