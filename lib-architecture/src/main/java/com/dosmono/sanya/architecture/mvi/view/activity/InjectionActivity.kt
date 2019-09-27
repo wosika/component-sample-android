@@ -1,23 +1,19 @@
 package com.dosmono.sanya.architecture.mvi.view.activity
 
 import android.os.Bundle
-import dagger.android.AndroidInjection
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
+import com.dosmono.sanya.architecture.app.Kits
+import com.dosmono.sanya.architecture.di.AppComponent
 import javax.inject.Inject
 
-abstract class InjectionActivity : AutoDisposeActivity(), HasAndroidInjector {
+abstract class InjectionActivity : AutoDisposeActivity() {
 
-    @Inject
-    lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
+        daggerInject(Kits.obtainAppComponentFromContext(this))
         super.onCreate(savedInstanceState)
     }
 
-    override fun androidInjector(): AndroidInjector<Any> {
-        return androidInjector
-    }
+    abstract fun daggerInject(appComponent: AppComponent)
+
+
 }

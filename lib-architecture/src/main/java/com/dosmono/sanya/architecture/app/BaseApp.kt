@@ -4,25 +4,12 @@ import android.app.Application
 import com.dosmono.sanya.architecture.BuildConfig
 import com.dosmono.sanya.architecture.di.AppComponent
 import com.dosmono.sanya.architecture.di.DaggerAppComponent
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
 import timber.log.Timber
-import javax.inject.Inject
 
-abstract class BaseApp : IAPP, Application(), HasAndroidInjector {
-
-
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
+abstract class BaseApp : IAPP, Application() {
 
 
-    private lateinit var appComponent: AppComponent
-
-
-    override fun androidInjector(): AndroidInjector<Any> {
-        return dispatchingAndroidInjector;
-    }
+    private lateinit var mAppComponent: AppComponent
 
 
     override fun onCreate() {
@@ -48,15 +35,12 @@ abstract class BaseApp : IAPP, Application(), HasAndroidInjector {
      * 初始化dagger依赖注入
      */
     private fun initDagger() {
-        appComponent = DaggerAppComponent.factory().create(this).also {
-            it.inject(this)
-        }
-
+        mAppComponent = DaggerAppComponent.factory().create(this).apply { inject(this@BaseApp) }
     }
 
 
     override fun getAppComponent(): AppComponent {
-        return appComponent
+        return mAppComponent
     }
 
 }

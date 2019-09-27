@@ -6,11 +6,13 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.dosmono.sanya.architecture.app.Kits
 import com.dosmono.sanya.architecture.app.WTF
+import com.dosmono.sanya.architecture.di.AppComponent
 import com.dosmono.sanya.component.RouterParty
 import com.dosmono.sanya.main.R
 import com.dosmono.sanya.main.mvi.MainViewState.ErrorState
 import com.dosmono.sanya.architecture.mvi.view.activity.BaseActivity
 import com.dosmono.sanya.main.Person
+import com.dosmono.sanya.main.di.DaggerMainActivityComponent
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.main_activity_main.*
@@ -20,6 +22,14 @@ import javax.inject.Inject
 @Route(path = RouterParty.Main.MAIN_ACTIVITY)
 class MainActivity() : BaseActivity<MainIntent, MainViewState>() {
 
+
+    override fun daggerInject(appComponent: AppComponent) {
+        DaggerMainActivityComponent.builder()
+            .activity(this)
+            .appComponent(appComponent).build()
+            .inject(this)
+    }
+
     override val layoutId = R.layout.main_activity_main
 
     private val intentSubject: PublishSubject<MainIntent> = PublishSubject.create()
@@ -27,12 +37,15 @@ class MainActivity() : BaseActivity<MainIntent, MainViewState>() {
     @Inject
     lateinit var mViewModel: MainViewModel
 
+
+
     //此时注入进来的wtf对象 是重新创建的
     @Inject
     lateinit var wtf: WTF
 
     @Inject
     lateinit var person: Person
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,21 +59,19 @@ class MainActivity() : BaseActivity<MainIntent, MainViewState>() {
 
         NetworkUtils.getPhoneState(this)
 
-        Timber.d("mainActivity看看wtf的属性是不是单例1$wtf")
+        Timber.d("mainActivity 直接inject的 wtf$wtf")
 
         //通过此方式获取的wtf是单例
         val wtf1 = Kits.obtainAppComponentFromContext(this).wtf()
 
-        Timber.d("mainActivity看看wtf的属性是不是单例2$wtf1")
+        Timber.d("mainActivity obtainAppComponentFromContext wtf $wtf1")
 
         val age = person.age;
         Timber.d("看看person持有的wtf是什么"+person.wtf.toString())
 
 
-
         mViewModel.processIntents(intents())
     }
-
 
 
     /**
