@@ -1,13 +1,9 @@
 package com.dosmono.sanya.main.mvi
 
-import com.dosmono.sanya.architecture.app.WTF
 import com.dosmono.sanya.architecture.mvi.viewmodel.BaseViewModel
-import com.dosmono.sanya.main.Person
 import com.uber.autodispose.autoDispose
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import timber.log.Timber
-import javax.inject.Inject
 
 class MainViewModel : BaseViewModel<MainIntent, MainViewState>() {
 
@@ -19,12 +15,13 @@ class MainViewModel : BaseViewModel<MainIntent, MainViewState>() {
     private fun compose(): Observable<MainViewState> {
 
         return intentSubject
-            .flatMap {
-                return@flatMap when (it) {
-                    is MainIntent.RefreshIntent -> Observable.just<MainViewState>(MainViewState.LoadingState())
-                    else -> return@flatMap Observable.just<MainViewState>(MainViewState.SuccessState("返回的数据"))
+            .map {
+                return@map when (it) {
+                    is MainIntent.RefreshIntent -> MainViewState.LoadingState()
+                    else -> MainViewState.SuccessState("返回的数据")
                 }
             }
+            .startWith { MainViewState.LoadingState()}
             .distinctUntilChanged()
             // Emit the last one event of the stream on subscription
             // Useful when a View rebinds to the ViewModel after rotation.

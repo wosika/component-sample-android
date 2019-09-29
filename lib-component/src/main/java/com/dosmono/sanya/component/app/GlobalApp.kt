@@ -10,7 +10,6 @@ class GlobalApp : BaseApp() {
     override fun onCreate() {
         super.onCreate()
 
-
         initARouter()
 
         //提供让各个模块进行初始化的方法

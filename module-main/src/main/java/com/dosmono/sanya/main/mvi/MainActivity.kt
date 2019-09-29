@@ -69,7 +69,7 @@ class MainActivity() : BaseActivity<MainIntent, MainViewState>() {
     //数据绑定
     private fun binds() {
 
-
+        //对数据状态改变进行监听
         mViewModel.states()
             .autoDispose(scopeProvider)
             .subscribe(this::render)
@@ -83,12 +83,10 @@ class MainActivity() : BaseActivity<MainIntent, MainViewState>() {
             .throttleFirst(1, TimeUnit.SECONDS)
             .autoDispose(scopeProvider)
             .subscribe {
-                showMessage("点击")
-                //ARouter.getInstance().build(RouterParty.Talk.TALK_ACTIVITY).navigation(this)
+                //   showMessage("点击")
+                ARouter.getInstance().build(RouterParty.Sub.SUB_ACTIVITY).navigation(this)
             }
-
-
-
+        
         //观察意图
         mViewModel.processIntents(intents())
     }
@@ -99,7 +97,7 @@ class MainActivity() : BaseActivity<MainIntent, MainViewState>() {
      * @return Observable<MainIntent>
      */
     override fun intents(): Observable<MainIntent> {
-        return Observable.mergeArray(mInitIntent,mRefreshIntent)
+        return Observable.mergeArray(mInitIntent, mRefreshIntent)
 
     }
 
