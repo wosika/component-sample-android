@@ -4,23 +4,19 @@ import android.os.Bundle
 import android.widget.Toast
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
-import com.dosmono.sanya.architecture.app.Kits
+
 import com.dosmono.sanya.architecture.app.WTF
 import com.dosmono.sanya.architecture.di.AppComponent
 import com.dosmono.sanya.component.RouterParty
 import com.dosmono.sanya.main.R
-import com.dosmono.sanya.main.mvi.MainViewState.ErrorState
 import com.dosmono.sanya.architecture.mvi.view.activity.BaseActivity
 import com.dosmono.sanya.main.Person
 import com.dosmono.sanya.main.di.DaggerMainActivityComponent
 import com.jakewharton.rxbinding3.view.clicks
-import com.uber.autodispose.autoDisposable
 import com.uber.autodispose.autoDispose
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.main_activity_main.*
-import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -39,8 +35,6 @@ class MainActivity() : BaseActivity<MainIntent, MainViewState>() {
     override val layoutId = R.layout.main_activity_main
 
 
-    //初始化意图
-    private val mInitIntent: Observable<MainIntent> = Observable.just(MainIntent.InitIntent)
     //刷新意图
     private val mRefreshIntent: PublishSubject<MainIntent.RefreshIntent> = PublishSubject.create()
 
@@ -86,7 +80,7 @@ class MainActivity() : BaseActivity<MainIntent, MainViewState>() {
                 //   showMessage("点击")
                 ARouter.getInstance().build(RouterParty.Sub.SUB_ACTIVITY).navigation(this)
             }
-        
+
         //观察意图
         mViewModel.processIntents(intents())
     }
@@ -97,7 +91,7 @@ class MainActivity() : BaseActivity<MainIntent, MainViewState>() {
      * @return Observable<MainIntent>
      */
     override fun intents(): Observable<MainIntent> {
-        return Observable.mergeArray(mInitIntent, mRefreshIntent)
+        return Observable.mergeArray<MainIntent>(mRefreshIntent).startWith(MainIntent.InitIntent)
 
     }
 
@@ -110,8 +104,9 @@ class MainActivity() : BaseActivity<MainIntent, MainViewState>() {
         showMessage("是否在加载中${state.isLoading}")
 
         when (state) {
-            is ErrorState -> showMessage(state.error?.message)
+            is MainViewState.ErrorState -> showMessage(state.error?.message)
             is MainViewState.SuccessState -> showMessage(state.data)
+
         }
     }
 

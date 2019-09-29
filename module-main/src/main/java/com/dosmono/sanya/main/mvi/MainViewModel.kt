@@ -3,6 +3,7 @@ package com.dosmono.sanya.main.mvi
 import com.dosmono.sanya.architecture.mvi.viewmodel.BaseViewModel
 import com.uber.autodispose.autoDispose
 import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.PublishSubject
 
 class MainViewModel : BaseViewModel<MainIntent, MainViewState>() {
@@ -15,12 +16,7 @@ class MainViewModel : BaseViewModel<MainIntent, MainViewState>() {
     private fun compose(): Observable<MainViewState> {
 
         return intentSubject
-            .map {
-                return@map when (it) {
-                    is MainIntent.RefreshIntent -> MainViewState.LoadingState()
-                    else -> MainViewState.SuccessState("返回的数据")
-                }
-            }
+            .map<MainViewState>(this::actionFromIntent)
             .startWith { MainViewState.LoadingState()}
             .distinctUntilChanged()
             // Emit the last one event of the stream on subscription
@@ -30,6 +26,10 @@ class MainViewModel : BaseViewModel<MainIntent, MainViewState>() {
             // This allows the stream to stay alive even when the UI disconnects and
             // match the stream's lifecycle to the ViewModel's one.
             .autoConnect(0)
+    }
+
+    private fun actionFromIntent(intent: MainIntent): MainViewState {
+        return MainViewState.SuccessState("成功的数据")
     }
 
 
