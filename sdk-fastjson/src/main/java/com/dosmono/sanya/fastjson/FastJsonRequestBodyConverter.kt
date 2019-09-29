@@ -1,5 +1,6 @@
 package com.dosmono.sanya.fastjson
 
+import com.alibaba.fastjson.serializer.SerializeConfig
 
 import com.alibaba.fastjson.JSON
 
@@ -10,11 +11,12 @@ import okhttp3.RequestBody
 
 import retrofit2.Converter
 
-class FastJsonRequestBodyConverter<T> : Converter<T, RequestBody> {
+class FastJsonRequestBodyConverter<T>(private val serializeConfig: SerializeConfig) :
+    Converter<T, RequestBody> {
 
     @Throws(IOException::class)
-    override fun convert(value: T): RequestBody? {
-        return RequestBody.create(MEDIA_TYPE, JSON.toJSONBytes(value))
+    override fun convert(value: T): RequestBody {
+        return RequestBody.create(MEDIA_TYPE, JSON.toJSONBytes(value, serializeConfig))
     }
 
     companion object {
