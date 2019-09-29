@@ -4,6 +4,7 @@ import android.app.Application
 import com.dosmono.sanya.architecture.BuildConfig
 import com.dosmono.sanya.architecture.di.AppComponent
 import com.dosmono.sanya.architecture.di.DaggerAppComponent
+import io.reactivex.plugins.RxJavaPlugins
 import timber.log.Timber
 
 abstract class BaseApp : IAPP, Application() {
@@ -17,7 +18,13 @@ abstract class BaseApp : IAPP, Application() {
 
         initTimber()
         initDagger()
+        initRxJava()
 
+    }
+
+    private fun initRxJava() {
+        //定义一个onerror handler，防止没有复写onerror时出现的崩溃
+        RxJavaPlugins.setErrorHandler { t: Throwable? -> t?.printStackTrace() }
     }
 
     /**

@@ -9,15 +9,8 @@ sealed class MainIntent : IIntent {
 
 
     /**
-     * 传入要刷新的页数
-     * @property page Int
-     * @constructor
+     * 刷新界面的意图
      */
-    data class RefreshIntent(val page: Int) : MainIntent()
-
-
-
-    object ToSubIntent:MainIntent()
-
+    object RefreshIntent : MainIntent()
 
 }

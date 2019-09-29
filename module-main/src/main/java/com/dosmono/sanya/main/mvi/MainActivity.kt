@@ -17,6 +17,7 @@ import com.jakewharton.rxbinding3.view.clicks
 import com.uber.autodispose.autoDisposable
 import com.uber.autodispose.autoDispose
 import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.main_activity_main.*
 import timber.log.Timber
@@ -65,21 +66,27 @@ class MainActivity() : BaseActivity<MainIntent, MainViewState>() {
         binds()
     }
 
-
+    //数据绑定
     private fun binds() {
 
-        //数据绑定
+
         mViewModel.states()
             .autoDispose(scopeProvider)
             .subscribe(this::render)
 
         //点击事件
         btn.clicks()
-            .debounce(2, TimeUnit.SECONDS)
+            //延迟一秒后没有再被触发数据才发射，如果不更改接收会在子线程中回调
+            // .debounce(1,TimeUnit.SECONDS)
+            //            .observeOn(AndroidSchedulers.mainThread())
+            //直接触发，屏蔽掉1秒内的其他操作
+            .throttleFirst(1, TimeUnit.SECONDS)
             .autoDispose(scopeProvider)
             .subscribe {
-                ARouter.getInstance().build(RouterParty.Talk.TALK_ACTIVITY).navigation(this)
+                showMessage("点击")
+                //ARouter.getInstance().build(RouterParty.Talk.TALK_ACTIVITY).navigation(this)
             }
+
 
 
         //观察意图
@@ -92,7 +99,7 @@ class MainActivity() : BaseActivity<MainIntent, MainViewState>() {
      * @return Observable<MainIntent>
      */
     override fun intents(): Observable<MainIntent> {
-        return Observable.merge(mInitIntent, mRefreshIntent)
+        return Observable.mergeArray(mInitIntent,mRefreshIntent)
 
     }
 
@@ -102,7 +109,7 @@ class MainActivity() : BaseActivity<MainIntent, MainViewState>() {
      */
     override fun render(state: MainViewState) {
 
-        showMessage("是否在加载中$state.isLoading")
+        showMessage("是否在加载中${state.isLoading}")
 
         when (state) {
             is ErrorState -> showMessage(state.error?.message)
