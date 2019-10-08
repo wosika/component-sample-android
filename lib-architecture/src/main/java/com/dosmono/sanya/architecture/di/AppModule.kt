@@ -1,28 +1,19 @@
 package com.dosmono.sanya.architecture.di
 
-import android.app.Application
-import com.dosmono.sanya.architecture.app.WTF
 import com.dosmono.sanya.fastjson.FastJsonConverterFactory
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import timber.log.Timber
 import javax.inject.Singleton
 
 @Module
 class AppModule {
 
-    @Singleton
-    @Provides
-    fun provideWTF(application: Application): WTF {
-        return WTF("wosika", "25").apply {
-            Timber.d("AppModule提供的wtf$this")
-        }
-    }
 
 
+    //提供retrofit
     @Singleton
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
@@ -34,12 +25,14 @@ class AppModule {
             .build()
     }
 
-
+    //提供okhttp
     @Singleton
     @Provides
     fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder().build()
     }
+
+
 
 
 

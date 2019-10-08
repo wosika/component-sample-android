@@ -3,29 +3,58 @@ package com.dosmono.sanya.main.di
 
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProviders
-import com.dosmono.sanya.architecture.app.WTF
 import com.dosmono.sanya.architecture.mvi.di.ActivityScope
-import com.dosmono.sanya.main.Person
-import com.dosmono.sanya.main.mvi.MainViewModel
+import com.dosmono.sanya.main.mvi.*
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
-import timber.log.Timber
 
-@Module
+@Module//(includes = [MainActivityBindModule::class])
 class MainActivityModule {
 
     @Provides
     @ActivityScope
-    fun provideViewModel(activity: FragmentActivity): MainViewModel {
-        return ViewModelProviders.of(activity)[MainViewModel::class.java]
+    fun provideViewModel(activity: FragmentActivity, repo: MainRepository): MainViewModel {
+        return ViewModelProviders.of(
+            activity,
+            MainViewModelFactory(repo)
+        )[MainViewModel::class.java]
     }
 
 
     @Provides
     @ActivityScope
-    fun provideString(wtf: WTF): Person {
-        Timber.d("提供person时注入的wtf是$wtf")
-
-        return Person(wtf)
+    fun provideMainRemoteDataSource(): MainRemoteDataSource {
+        return MainRemoteDataSource()
     }
+
+
+    @Provides
+    @ActivityScope
+    fun provideMainLocalDataSource(): MainLocalDataSource {
+        return MainLocalDataSource()
+    }
+
+
+
+    @Provides
+    @ActivityScope
+    fun provideRepository(
+        remoteDataSource: MainRemoteDataSource,
+        localDataSource: MainLocalDataSource
+    ): MainRepository {
+        return MainRepository(localDataSource, remoteDataSource)
+    }
+
+
+
 }
+
+
+/*@Module
+abstract class MainActivityBindModule {
+
+    @Binds
+    internal abstract fun bindMainDataSourceRepository(repositoryManager: MainRepository): MainRepository
+
+}*/

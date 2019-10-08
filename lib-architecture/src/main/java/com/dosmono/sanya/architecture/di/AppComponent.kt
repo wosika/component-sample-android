@@ -2,7 +2,6 @@ package com.dosmono.sanya.architecture.di
 
 import android.app.Application
 import com.dosmono.sanya.architecture.app.BaseApp
-import com.dosmono.sanya.architecture.app.WTF
 import dagger.BindsInstance
 import dagger.Component
 import retrofit2.Retrofit
@@ -20,9 +19,9 @@ interface AppComponent {
     fun inject(baseApp: BaseApp)
 
 
-    fun wtf(): WTF
-
     //提供retrofit
-    fun retrofit():Retrofit
+    fun retrofit(): Retrofit
+
+
 
 }

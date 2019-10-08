@@ -5,12 +5,10 @@ import android.widget.Toast
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 
-import com.dosmono.sanya.architecture.app.WTF
 import com.dosmono.sanya.architecture.di.AppComponent
 import com.dosmono.sanya.component.RouterParty
 import com.dosmono.sanya.main.R
 import com.dosmono.sanya.architecture.mvi.view.activity.BaseActivity
-import com.dosmono.sanya.main.Person
 import com.dosmono.sanya.main.di.DaggerMainActivityComponent
 import com.jakewharton.rxbinding3.view.clicks
 import com.uber.autodispose.autoDispose
@@ -43,19 +41,8 @@ class MainActivity() : BaseActivity<MainIntent, MainViewState>() {
     lateinit var mViewModel: MainViewModel
 
 
-    //此时注入进来的wtf对象 是重新创建的
-    @Inject
-    lateinit var wtf: WTF
-
-    @Inject
-    lateinit var person: Person
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-
 
         binds()
     }

@@ -1,12 +1,14 @@
 package com.dosmono.sanya.main.mvi
 
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.dosmono.sanya.architecture.mvi.viewmodel.BaseViewModel
 import com.uber.autodispose.autoDispose
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.PublishSubject
 
-class MainViewModel : BaseViewModel<MainIntent, MainViewState>() {
+class MainViewModel(private val mRepo: MainRepository) :
+    BaseViewModel<MainIntent, MainViewState>() {
 
 
     private val intentSubject: PublishSubject<MainIntent> = PublishSubject.create()
@@ -17,7 +19,7 @@ class MainViewModel : BaseViewModel<MainIntent, MainViewState>() {
 
         return intentSubject
             .map<MainViewState>(this::actionFromIntent)
-            .startWith { MainViewState.LoadingState()}
+            .startWith { MainViewState.LoadingState() }
             .distinctUntilChanged()
             // Emit the last one event of the stream on subscription
             // Useful when a View rebinds to the ViewModel after rotation.
@@ -26,6 +28,8 @@ class MainViewModel : BaseViewModel<MainIntent, MainViewState>() {
             // This allows the stream to stay alive even when the UI disconnects and
             // match the stream's lifecycle to the ViewModel's one.
             .autoConnect(0)
+
+
     }
 
     private fun actionFromIntent(intent: MainIntent): MainViewState {
@@ -44,4 +48,12 @@ class MainViewModel : BaseViewModel<MainIntent, MainViewState>() {
     override fun states(): Observable<MainViewState> {
         return statesObservable
     }
+}
+
+@Suppress("UNCHECKED_CAST")
+class MainViewModelFactory(
+    private val mRepo: MainRepository
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T =
+        MainViewModel(mRepo) as T
 }

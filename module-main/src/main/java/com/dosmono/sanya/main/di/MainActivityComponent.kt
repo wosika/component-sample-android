@@ -8,7 +8,10 @@ import dagger.BindsInstance
 import dagger.Component
 
 @ActivityScope
-@Component(modules = [MainActivityModule::class], dependencies = [AppComponent::class])
+@Component(
+    modules = [MainActivityModule::class ],
+    dependencies = [AppComponent::class]
+)
 interface MainActivityComponent {
 
 
