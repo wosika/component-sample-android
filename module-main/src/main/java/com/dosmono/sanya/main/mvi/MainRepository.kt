@@ -1,9 +1,10 @@
 package com.dosmono.sanya.main.mvi
 
 import com.dosmono.sanya.architecture.mvi.repository.BaseRepositoryBoth
-import com.dosmono.sanya.architecture.mvi.repository.BaseRepositoryNothing
+
 import com.dosmono.sanya.architecture.mvi.repository.ILocalDataSource
 import com.dosmono.sanya.architecture.mvi.repository.IRemoteDataSource
+import retrofit2.Retrofit
 
 
 class MainRepository(
@@ -17,7 +18,8 @@ class MainRepository(
 
 }
 
-class MainRemoteDataSource : IRemoteDataSource {
+class MainRemoteDataSource(retrofit: Retrofit) : IRemoteDataSource {
+
 
 }
 

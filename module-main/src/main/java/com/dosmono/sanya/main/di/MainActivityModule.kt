@@ -8,6 +8,7 @@ import com.dosmono.sanya.main.mvi.*
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import retrofit2.Retrofit
 
 @Module//(includes = [MainActivityBindModule::class])
 class MainActivityModule {
@@ -24,8 +25,8 @@ class MainActivityModule {
 
     @Provides
     @ActivityScope
-    fun provideMainRemoteDataSource(): MainRemoteDataSource {
-        return MainRemoteDataSource()
+    fun provideMainRemoteDataSource(retrofit: Retrofit): MainRemoteDataSource {
+        return MainRemoteDataSource(retrofit)
     }
 
 
@@ -45,8 +46,6 @@ class MainActivityModule {
     ): MainRepository {
         return MainRepository(localDataSource, remoteDataSource)
     }
-
-
 
 }
 

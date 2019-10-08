@@ -15,6 +15,7 @@ class MainViewModel(private val mRepo: MainRepository) :
 
     private val statesObservable: Observable<MainViewState> = compose()
 
+
     private fun compose(): Observable<MainViewState> {
 
         return intentSubject
@@ -28,6 +29,9 @@ class MainViewModel(private val mRepo: MainRepository) :
             // This allows the stream to stay alive even when the UI disconnects and
             // match the stream's lifecycle to the ViewModel's one.
             .autoConnect(0)
+
+
+
 
 
     }
