@@ -15,5 +15,6 @@ sealed class MainViewState(
 
     class LoadingState() : MainViewState(null, null, true)
 
+    class CheckSuccessState(data: String) : MainViewState(null, data, false)
 
 }

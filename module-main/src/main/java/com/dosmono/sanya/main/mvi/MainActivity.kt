@@ -1,6 +1,8 @@
 package com.dosmono.sanya.main.mvi
 
 import android.os.Bundle
+import android.text.TextUtils
+import android.view.View
 import android.widget.Toast
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
@@ -37,6 +39,11 @@ class MainActivity() : BaseActivity<MainIntent, MainViewState>() {
     private val mRefreshIntent: PublishSubject<MainIntent.RefreshIntent> = PublishSubject.create()
 
 
+    //查询号码归属地的意图
+
+    private val mCheckPhoneSubject: PublishSubject<MainIntent.CheckPhoneIntent> =
+        PublishSubject.create()
+
     @Inject
     lateinit var mViewModel: MainViewModel
 
@@ -68,6 +75,22 @@ class MainActivity() : BaseActivity<MainIntent, MainViewState>() {
                 ARouter.getInstance().build(RouterParty.Sub.SUB_ACTIVITY).navigation(this)
             }
 
+
+      /*  btn_get_phone.visibility = View.GONE
+        btn_get_phone.clicks()
+            .throttleFirst(1, TimeUnit.SECONDS)
+            .filter {
+                return@filter TextUtils.isEmpty(et_phone.text.toString()).apply {
+                    if (this) {
+                        showMessage("请输入手机号")
+                    }
+                }
+            }
+            .map { MainIntent.CheckPhoneIntent(et_phone.text.toString()) }
+            .autoDispose(scopeProvider)
+            .subscribe(mCheckPhoneSubject)*/
+
+
         //观察意图
         mViewModel.processIntents(intents())
     }
@@ -78,7 +101,8 @@ class MainActivity() : BaseActivity<MainIntent, MainViewState>() {
      * @return Observable<MainIntent>
      */
     override fun intents(): Observable<MainIntent> {
-        return Observable.mergeArray<MainIntent>(mRefreshIntent).startWith(MainIntent.InitIntent)
+        return Observable.mergeArray<MainIntent>(mRefreshIntent, mCheckPhoneSubject)
+            .startWith(MainIntent.InitIntent)
 
     }
 

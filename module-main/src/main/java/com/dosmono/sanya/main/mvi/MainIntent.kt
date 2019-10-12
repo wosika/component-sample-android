@@ -13,4 +13,11 @@ sealed class MainIntent : IIntent {
      */
     object RefreshIntent : MainIntent()
 
+
+
+
+    /**
+     * 查询手机号的意图
+     */
+    data class CheckPhoneIntent(val phone:String) : MainIntent()
 }

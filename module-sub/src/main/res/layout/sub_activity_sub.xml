@@ -7,10 +7,10 @@
     tools:context="com.dosmono.sanya.sub.mvi.SubActivity">
 
 
-    <TextView
+    <Button
         android:id="@+id/btn"
         android:layout_centerInParent="true"
-        android:text="sub组件"
+        android:text="sub组件,点击跳转talk组件"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

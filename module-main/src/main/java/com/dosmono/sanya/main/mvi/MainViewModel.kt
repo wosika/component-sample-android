@@ -13,6 +13,7 @@ class MainViewModel(private val mRepo: MainRepository) :
 
     private val intentSubject: PublishSubject<MainIntent> = PublishSubject.create()
 
+
     private val statesObservable: Observable<MainViewState> = compose()
 
 
@@ -31,12 +32,10 @@ class MainViewModel(private val mRepo: MainRepository) :
             .autoConnect(0)
 
 
-
-
-
     }
 
     private fun actionFromIntent(intent: MainIntent): MainViewState {
+
         return MainViewState.SuccessState("成功的数据")
     }
 
