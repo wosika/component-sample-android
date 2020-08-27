@@ -57,7 +57,7 @@ dependencies {
 
 
 
-    //导入Arouter
+    //导入框架部分
     api project(":lib-architecture")
 
 
